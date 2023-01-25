@@ -1,0 +1,8 @@
+notify-update:
+  # Notifies Plugin Update
+  enable: true
+settings:
+  # Currency Symbol
+  currency: $
+  # Currency Format
+  format: "#,##0.00"

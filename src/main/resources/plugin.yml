@@ -1,0 +1,35 @@
+name: Economy
+version: '${project.version}'
+main: net.achymake.economy.Economy
+api-version: 1.13
+prefix: Economy
+depend: [ Vault ]
+authors: [ AchyMake ]
+description: Economy Plugin
+permissions:
+  economy.balance:
+    description: check balance
+    default: true
+  economy.pay:
+    description: check balance
+    default: true
+  economy.balance.others:
+    description: check balance of others
+    default: op
+  economy.reload:
+    description: economy settings
+    default: op
+commands:
+  economy:
+    permission: economy.reload
+    description: economy settings
+    aliases:
+      - eco
+  balance:
+    permission: economy.balance
+    description: check balance
+    aliases:
+      - bal
+  pay:
+    permission: economy.pay
+    description: pay players
