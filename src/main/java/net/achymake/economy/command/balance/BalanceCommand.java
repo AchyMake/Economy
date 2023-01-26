@@ -15,20 +15,18 @@ import org.bukkit.entity.Player;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class BalanceCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         Player player = (Player) sender;
         if (args.length == 0){
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', MessageFormat.format(MessageConfig.get().getString("command-balance"),Settings.getFormat(Settings.getEconomy(player.getUniqueId())))));
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', MessageFormat.format(MessageConfig.get().getString("command-balance"),Settings.getFormat(Settings.getEconomy(player)))));
         } else if (args.length == 1) {
             if (player.hasPermission("economy.balance.others")){
                 OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args[0]);
-                UUID uuid = offlinePlayer.getUniqueId();
-                if (PlayerConfig.exist(uuid)){
-                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', MessageFormat.format(MessageConfig.get().getString("command-balance-others"),offlinePlayer.getName(),Settings.getFormat(Settings.getEconomy(uuid)))));
+                if (PlayerConfig.exist(offlinePlayer)){
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', MessageFormat.format(MessageConfig.get().getString("command-balance-others"),offlinePlayer.getName(),Settings.getFormat(Settings.getEconomy(offlinePlayer)))));
                 }else{
                     player.sendMessage(ChatColor.translateAlternateColorCodes('&', MessageFormat.format(MessageConfig.get().getString("error-target-null"),offlinePlayer.getName())));
                 }

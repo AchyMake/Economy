@@ -10,7 +10,6 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import java.text.MessageFormat;
-import java.util.UUID;
 
 public class Set extends EcoSubCommand {
     @Override
@@ -32,12 +31,11 @@ public class Set extends EcoSubCommand {
     public void perform(Player player, String[] args) {
         if (args.length == 3){
             OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args[1]);
-            UUID uuid = offlinePlayer.getUniqueId();
-            if (PlayerConfig.exist(uuid)){
+            if (PlayerConfig.exist(offlinePlayer)){
                 double amount = Double.parseDouble(args[2]);
-                Settings.setEconomy(uuid,amount);
+                Settings.setEconomy(offlinePlayer,amount);
                 for (String messages : MessageConfig.get().getStringList("command-eco-set")){
-                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', MessageFormat.format(messages,Settings.getFormat(amount),offlinePlayer.getName(),Settings.getFormat(Settings.getEconomy(uuid)))));
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', MessageFormat.format(messages,Settings.getFormat(amount),offlinePlayer.getName(),Settings.getFormat(Settings.getEconomy(offlinePlayer)))));
                 }
             }else{
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&', MessageFormat.format(MessageConfig.get().getString("error-target-null"),offlinePlayer.getName())));
