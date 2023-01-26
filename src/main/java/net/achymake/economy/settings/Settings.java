@@ -23,7 +23,7 @@ public class Settings {
             configuration.set("account",newAmount);
             configuration.save(file);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            Economy.instance.sendMessage(e.getMessage());
         }
     }
     public static void removeEconomy(OfflinePlayer offlinePlayer, double amount){
@@ -34,7 +34,7 @@ public class Settings {
             configuration.set("account",newAmount);
             configuration.save(file);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            Economy.instance.sendMessage(e.getMessage());
         }
     }
     public static void setEconomy(OfflinePlayer offlinePlayer, double amount){
@@ -44,7 +44,7 @@ public class Settings {
             configuration.set("account",amount);
             configuration.save(file);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            Economy.instance.sendMessage(e.getMessage());
         }
     }
     public static void resetEconomy(OfflinePlayer offlinePlayer){
@@ -54,7 +54,7 @@ public class Settings {
             configuration.set("account",0.0);
             configuration.save(file);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            Economy.instance.sendMessage(e.getMessage());
         }
     }
     public static String getFormat(Double value) {
