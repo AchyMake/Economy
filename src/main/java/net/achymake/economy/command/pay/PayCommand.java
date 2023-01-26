@@ -17,25 +17,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PayCommand implements CommandExecutor, TabCompleter {
-
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender instanceof Player) {
-            Player player = (Player) sender;
             if (args.length == 2) {
+                Player player = (Player) sender;
                 OfflinePlayer target = Bukkit.getOfflinePlayer(args[0]);
-                double amount = Double.parseDouble(args[1]);
-                if (amount <= Settings.getEconomy(player.getUniqueId())){
-                    Settings.addEconomy(target.getUniqueId(),amount);
-                    Settings.removeEconomy(player.getUniqueId(),amount);
-                    if (target.isOnline()){
-                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', MessageFormat.format(MessageConfig.get().getString("command-pay"),target.getName(), Settings.getFormat(amount))));
-                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', MessageFormat.format(MessageConfig.get().getString("command-pay-target"),player.getName(), Settings.getFormat(amount))));
+                if (PlayerConfig.exist(target.getUniqueId())){
+                    double amount = Double.parseDouble(args[1]);
+                    if (amount <= Settings.getEconomy(player.getUniqueId())){
+                        Settings.addEconomy(target.getUniqueId(),amount);
+                        Settings.removeEconomy(player.getUniqueId(),amount);
+                        if (target.isOnline()){
+                            player.sendMessage(ChatColor.translateAlternateColorCodes('&', MessageFormat.format(MessageConfig.get().getString("command-pay"),target.getName(), Settings.getFormat(amount))));
+                            player.sendMessage(ChatColor.translateAlternateColorCodes('&', MessageFormat.format(MessageConfig.get().getString("command-pay-target"),player.getName(), Settings.getFormat(amount))));
+                        }else{
+                            player.sendMessage(ChatColor.translateAlternateColorCodes('&', MessageFormat.format(MessageConfig.get().getString("command-pay"),target.getName(), Settings.getFormat(amount))));
+                        }
                     }else{
-                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', MessageFormat.format(MessageConfig.get().getString("command-pay"),target.getName(), Settings.getFormat(amount))));
+                        player.sendMessage(ChatColor.translateAlternateColorCodes('&',MessageFormat.format(MessageConfig.get().getString("error-not-enough-currency"),Settings.getFormat(amount))));
                     }
                 }else{
-                    player.sendMessage(ChatColor.translateAlternateColorCodes('&',MessageFormat.format(MessageConfig.get().getString("error-not-enough-currency"),Settings.getFormat(amount))));
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', MessageFormat.format(MessageConfig.get().getString("error-target-null"),target.getName())));
                 }
             }
         }
@@ -45,8 +48,8 @@ public class PayCommand implements CommandExecutor, TabCompleter {
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         List<String> commands = new ArrayList<>();
         if (args.length == 1){
-            for (Player players : Bukkit.getOnlinePlayers()){
-                commands.add(players.getName());
+            for (OfflinePlayer offlinePlayer : sender.getServer().getOfflinePlayers()){
+                commands.add(offlinePlayer.getName());
             }
             return commands;
         }else if (args.length == 2) {

@@ -25,12 +25,12 @@ public class BalanceCommand implements CommandExecutor, TabCompleter {
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', MessageFormat.format(MessageConfig.get().getString("command-balance"),Settings.getFormat(Settings.getEconomy(player.getUniqueId())))));
         } else if (args.length == 1) {
             if (player.hasPermission("economy.balance.others")){
-                String name = args[0];
-                UUID uuid = Bukkit.getOfflinePlayer(name).getUniqueId();
+                OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args[0]);
+                UUID uuid = offlinePlayer.getUniqueId();
                 if (PlayerConfig.exist(uuid)){
-                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', MessageFormat.format(MessageConfig.get().getString("command-balance-others"),name,Settings.getFormat(Settings.getEconomy(uuid)))));
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', MessageFormat.format(MessageConfig.get().getString("command-balance-others"),offlinePlayer.getName(),Settings.getFormat(Settings.getEconomy(uuid)))));
                 }else{
-                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', MessageFormat.format(MessageConfig.get().getString("error-target-null"),name)));
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', MessageFormat.format(MessageConfig.get().getString("error-target-null"),offlinePlayer.getName())));
                 }
             }
         }
