@@ -6,3 +6,5 @@ settings:
   currency: $
   # Currency Format
   format: "#,##0.00"
+  # Starting Balance
+  starting-balance: 0.0

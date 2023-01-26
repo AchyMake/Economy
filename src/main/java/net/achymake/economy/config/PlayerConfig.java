@@ -24,7 +24,7 @@ public class PlayerConfig {
         if (!exist(offlinePlayer)){
             try {
                 config.set("name", offlinePlayer.getName());
-                config.set("account", 0.0);
+                config.set("account", Config.get().getDouble("settings.starting-balance"));
                 config.options().copyDefaults(true);
                 config.save(file);
             } catch (IOException e) {
