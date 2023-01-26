@@ -22,23 +22,23 @@ public class PayCommand implements CommandExecutor, TabCompleter {
         if (sender instanceof Player) {
             if (args.length == 2) {
                 Player player = (Player) sender;
-                OfflinePlayer target = Bukkit.getOfflinePlayer(args[0]);
-                if (PlayerConfig.exist(target.getUniqueId())){
+                OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args[0]);
+                if (PlayerConfig.exist(offlinePlayer)){
                     double amount = Double.parseDouble(args[1]);
-                    if (amount <= Settings.getEconomy(player.getUniqueId())){
-                        Settings.addEconomy(target.getUniqueId(),amount);
-                        Settings.removeEconomy(player.getUniqueId(),amount);
-                        if (target.isOnline()){
-                            player.sendMessage(ChatColor.translateAlternateColorCodes('&', MessageFormat.format(MessageConfig.get().getString("command-pay"),target.getName(), Settings.getFormat(amount))));
+                    if (amount <= Settings.getEconomy(player)){
+                        Settings.addEconomy(offlinePlayer,amount);
+                        Settings.removeEconomy(player,amount);
+                        if (offlinePlayer.isOnline()){
+                            player.sendMessage(ChatColor.translateAlternateColorCodes('&', MessageFormat.format(MessageConfig.get().getString("command-pay"),offlinePlayer.getName(), Settings.getFormat(amount))));
                             player.sendMessage(ChatColor.translateAlternateColorCodes('&', MessageFormat.format(MessageConfig.get().getString("command-pay-target"),player.getName(), Settings.getFormat(amount))));
                         }else{
-                            player.sendMessage(ChatColor.translateAlternateColorCodes('&', MessageFormat.format(MessageConfig.get().getString("command-pay"),target.getName(), Settings.getFormat(amount))));
+                            player.sendMessage(ChatColor.translateAlternateColorCodes('&', MessageFormat.format(MessageConfig.get().getString("command-pay"),offlinePlayer.getName(), Settings.getFormat(amount))));
                         }
                     }else{
                         player.sendMessage(ChatColor.translateAlternateColorCodes('&',MessageFormat.format(MessageConfig.get().getString("error-not-enough-currency"),Settings.getFormat(amount))));
                     }
                 }else{
-                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', MessageFormat.format(MessageConfig.get().getString("error-target-null"),target.getName())));
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', MessageFormat.format(MessageConfig.get().getString("error-target-null"),offlinePlayer.getName())));
                 }
             }
         }
