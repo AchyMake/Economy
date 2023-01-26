@@ -9,8 +9,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
 
-import java.util.UUID;
-
 public class PlayerLogin implements Listener {
     public PlayerLogin(Economy plugin){
         Bukkit.getPluginManager().registerEvents(this,plugin);
@@ -18,7 +16,6 @@ public class PlayerLogin implements Listener {
     @EventHandler(priority = EventPriority.NORMAL)
     public void onPlayerJoin (PlayerLoginEvent event){
         Player player = event.getPlayer();
-        UUID uuid = player.getUniqueId();
-        PlayerConfig.create(uuid);
+        PlayerConfig.create(player);
     }
 }

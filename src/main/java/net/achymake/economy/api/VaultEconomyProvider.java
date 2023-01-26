@@ -39,10 +39,10 @@ public class VaultEconomyProvider implements net.milkbowl.vault.economy.Economy 
         return Config.get().getString("settings.currency");
     }
     public boolean hasAccount(OfflinePlayer offlinePlayer) {
-        return PlayerConfig.exist(offlinePlayer.getUniqueId());
+        return PlayerConfig.exist(offlinePlayer);
     }
     public boolean hasAccount(String playerName) {
-        return PlayerConfig.exist(Bukkit.getOfflinePlayer(playerName).getUniqueId());
+        return PlayerConfig.exist(Bukkit.getOfflinePlayer(playerName));
     }
     public boolean hasAccount(String playerName, String worldName) {
         return this.hasAccount(playerName);
@@ -51,10 +51,10 @@ public class VaultEconomyProvider implements net.milkbowl.vault.economy.Economy 
         return this.hasAccount(player);
     }
     public double getBalance(OfflinePlayer offlinePlayer) {
-        return Settings.getEconomy(offlinePlayer.getUniqueId());
+        return Settings.getEconomy(offlinePlayer);
     }
     public double getBalance(String playerName) {
-        return Settings.getEconomy(Bukkit.getOfflinePlayer(playerName).getUniqueId());
+        return Settings.getEconomy(Bukkit.getOfflinePlayer(playerName));
     }
     public double getBalance(String playerName, String world) {
         return this.getBalance(playerName);
@@ -63,10 +63,10 @@ public class VaultEconomyProvider implements net.milkbowl.vault.economy.Economy 
         return this.getBalance(player);
     }
     public boolean has(OfflinePlayer offlinePlayer, double amount) {
-        return Settings.getEconomy(offlinePlayer.getUniqueId()) >= amount;
+        return Settings.getEconomy(offlinePlayer) >= amount;
     }
     public boolean has(String playerName, double amount) {
-        return Settings.getEconomy(Bukkit.getOfflinePlayer(playerName).getUniqueId()) >= amount;
+        return Settings.getEconomy(Bukkit.getOfflinePlayer(playerName)) >= amount;
     }
     public boolean has(String playerName, String worldName, double amount) {
         return this.has(playerName, amount);
@@ -80,7 +80,7 @@ public class VaultEconomyProvider implements net.milkbowl.vault.economy.Economy 
         } else if (amount < 0.0) {
             return new EconomyResponse(0.0, 0.0, EconomyResponse.ResponseType.FAILURE, "Cannot withdraw negative funds!");
         } else {
-            Settings.removeEconomy(offlinePlayer.getUniqueId(),amount);
+            Settings.removeEconomy(offlinePlayer,amount);
             return new EconomyResponse(amount, this.getBalance(offlinePlayer), EconomyResponse.ResponseType.SUCCESS, null);
         }
     }
@@ -90,7 +90,7 @@ public class VaultEconomyProvider implements net.milkbowl.vault.economy.Economy 
         } else if (amount < 0.0) {
             return new EconomyResponse(0.0, 0.0, EconomyResponse.ResponseType.FAILURE, "Cannot withdraw negative funds!");
         } else {
-            Settings.removeEconomy(Bukkit.getOfflinePlayer(playerName).getUniqueId(),amount);
+            Settings.removeEconomy(Bukkit.getOfflinePlayer(playerName),amount);
             return new EconomyResponse(amount, this.getBalance(playerName), EconomyResponse.ResponseType.SUCCESS, null);
         }
     }
@@ -106,7 +106,7 @@ public class VaultEconomyProvider implements net.milkbowl.vault.economy.Economy 
         } else if (amount < 0.0) {
             return new EconomyResponse(0.0, 0.0, EconomyResponse.ResponseType.FAILURE, "Cannot deposit negative funds");
         } else {
-            Settings.addEconomy(offlinePlayer.getUniqueId(),amount);
+            Settings.addEconomy(offlinePlayer,amount);
             return new EconomyResponse(amount, this.getBalance(offlinePlayer), EconomyResponse.ResponseType.SUCCESS, null);
         }
     }
@@ -116,7 +116,7 @@ public class VaultEconomyProvider implements net.milkbowl.vault.economy.Economy 
         } else if (amount < 0.0) {
             return new EconomyResponse(0.0, 0.0, EconomyResponse.ResponseType.FAILURE, "Cannot deposit negative funds");
         } else {
-            Settings.addEconomy(Bukkit.getOfflinePlayer(playerName).getUniqueId(),amount);
+            Settings.addEconomy(Bukkit.getOfflinePlayer(playerName),amount);
             return new EconomyResponse(amount, this.getBalance(playerName), EconomyResponse.ResponseType.SUCCESS, null);
         }
     }
@@ -127,11 +127,11 @@ public class VaultEconomyProvider implements net.milkbowl.vault.economy.Economy 
         return this.depositPlayer(player, amount);
     }
     public boolean createPlayerAccount(OfflinePlayer offlinePlayer) {
-        PlayerConfig.create(offlinePlayer.getUniqueId());
+        PlayerConfig.create(offlinePlayer);
         return true;
     }
     public boolean createPlayerAccount(String playerName) {
-        PlayerConfig.create(Bukkit.getOfflinePlayer(playerName).getUniqueId());
+        PlayerConfig.create(Bukkit.getOfflinePlayer(playerName));
         return true;
     }
     public boolean createPlayerAccount(String playerName, String worldName) {

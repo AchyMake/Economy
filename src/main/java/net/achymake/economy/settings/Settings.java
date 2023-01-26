@@ -3,20 +3,20 @@ package net.achymake.economy.settings;
 import net.achymake.economy.Economy;
 import net.achymake.economy.config.Config;
 import net.achymake.economy.config.PlayerConfig;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.DecimalFormat;
-import java.util.UUID;
 
 public class Settings {
-    public static double getEconomy(UUID uuid){
-        return PlayerConfig.get(uuid).getDouble("account");
+    public static double getEconomy(OfflinePlayer offlinePlayer){
+        return PlayerConfig.get(offlinePlayer).getDouble("account");
     }
-    public static void addEconomy(UUID uuid, double amount){
-        File file = new File(Economy.instance.getDataFolder(), "database/"+uuid+".yml");
+    public static void addEconomy(OfflinePlayer offlinePlayer, double amount){
+        File file = new File(Economy.instance.getDataFolder(), "database/"+offlinePlayer.getUniqueId()+".yml");
         FileConfiguration configuration = YamlConfiguration.loadConfiguration(file);
         double newAmount = amount + configuration.getDouble("account");
         try {
@@ -26,8 +26,8 @@ public class Settings {
             throw new RuntimeException(e);
         }
     }
-    public static void removeEconomy(UUID uuid, double amount){
-        File file = new File(Economy.instance.getDataFolder(), "database/"+uuid+".yml");
+    public static void removeEconomy(OfflinePlayer offlinePlayer, double amount){
+        File file = new File(Economy.instance.getDataFolder(), "database/"+offlinePlayer.getUniqueId()+".yml");
         FileConfiguration configuration = YamlConfiguration.loadConfiguration(file);
         double newAmount = configuration.getDouble("account") - amount;
         try {
@@ -37,8 +37,8 @@ public class Settings {
             throw new RuntimeException(e);
         }
     }
-    public static void setEconomy(UUID uuid, double amount){
-        File file = new File(Economy.instance.getDataFolder(), "database/"+uuid+".yml");
+    public static void setEconomy(OfflinePlayer offlinePlayer, double amount){
+        File file = new File(Economy.instance.getDataFolder(), "database/"+offlinePlayer.getUniqueId()+".yml");
         FileConfiguration configuration = YamlConfiguration.loadConfiguration(file);
         try {
             configuration.set("account",amount);
@@ -47,8 +47,8 @@ public class Settings {
             throw new RuntimeException(e);
         }
     }
-    public static void resetEconomy(UUID uuid){
-        File file = new File(Economy.instance.getDataFolder(), "database/"+uuid+".yml");
+    public static void resetEconomy(OfflinePlayer offlinePlayer){
+        File file = new File(Economy.instance.getDataFolder(), "database/"+offlinePlayer.getUniqueId()+".yml");
         FileConfiguration configuration = YamlConfiguration.loadConfiguration(file);
         try {
             configuration.set("account",0.0);
