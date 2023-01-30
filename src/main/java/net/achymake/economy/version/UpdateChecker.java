@@ -1,8 +1,8 @@
 package net.achymake.economy.version;
 
 import net.achymake.economy.Economy;
+import net.achymake.economy.config.MessageConfig;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.io.IOException;
@@ -51,9 +51,9 @@ public class UpdateChecker {
         if (Economy.instance.getConfig().getBoolean("notify-update.enable")) {
             (new UpdateChecker(Economy.instance, 107261)).getVersion((latest) -> {
                 if (!Economy.instance.getDescription().getVersion().equalsIgnoreCase(latest)) {
-                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6"+Economy.instance.getName()+" Update:"));
-                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6new release: &f" + latest));
-                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6current: &f" + Economy.instance.getDescription().getVersion()));
+                    MessageConfig.sendMessage(player,"&6"+Economy.instance.getName()+" Update:");
+                    MessageConfig.sendMessage(player,"&6new release: &f" + latest);
+                    MessageConfig.sendMessage(player,"&6current: &f" + Economy.instance.getDescription().getVersion());
                 }
             });
         }

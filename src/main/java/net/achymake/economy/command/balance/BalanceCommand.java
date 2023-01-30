@@ -4,7 +4,6 @@ import net.achymake.economy.api.EconomyProvider;
 import net.achymake.economy.config.MessageConfig;
 import net.achymake.economy.config.PlayerConfig;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -21,14 +20,14 @@ public class BalanceCommand implements CommandExecutor, TabCompleter {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         Player player = (Player) sender;
         if (args.length == 0){
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', MessageFormat.format(MessageConfig.get().getString("command-balance"), EconomyProvider.getFormat(EconomyProvider.getEconomy(player)))));
+            MessageConfig.sendMessage(player,MessageFormat.format(MessageConfig.get().getString("command-balance"), EconomyProvider.getFormat(EconomyProvider.getEconomy(player))));
         } else if (args.length == 1) {
             if (player.hasPermission("economy.balance.others")){
                 OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args[0]);
                 if (PlayerConfig.exist(offlinePlayer)){
-                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', MessageFormat.format(MessageConfig.get().getString("command-balance-others"),offlinePlayer.getName(),EconomyProvider.getFormat(EconomyProvider.getEconomy(offlinePlayer)))));
+                    MessageConfig.sendMessage(player,MessageFormat.format(MessageConfig.get().getString("command-balance-others"),offlinePlayer.getName(),EconomyProvider.getFormat(EconomyProvider.getEconomy(offlinePlayer))));
                 }else{
-                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', MessageFormat.format(MessageConfig.get().getString("error-target-null"),offlinePlayer.getName())));
+                    MessageConfig.sendMessage(player,MessageFormat.format(MessageConfig.get().getString("error-target-null"),offlinePlayer.getName()));
                 }
             }
         }

@@ -1,8 +1,10 @@
 package net.achymake.economy.config;
 
 import net.achymake.economy.Economy;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 
 import java.io.File;
 import java.io.IOException;
@@ -50,5 +52,8 @@ public class MessageConfig {
     }
     public static void reload(){
         config = YamlConfiguration.loadConfiguration(configFile);
+    }
+    public static void sendMessage(Player player, String message){
+        player.sendMessage(ChatColor.translateAlternateColorCodes('&',message));
     }
 }

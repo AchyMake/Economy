@@ -2,7 +2,7 @@ package net.achymake.economy.command.eco.sub;
 
 import net.achymake.economy.command.eco.EcoSubCommand;
 import net.achymake.economy.config.Files;
-import org.bukkit.ChatColor;
+import net.achymake.economy.config.MessageConfig;
 import org.bukkit.entity.Player;
 
 public class Reload extends EcoSubCommand {
@@ -25,7 +25,7 @@ public class Reload extends EcoSubCommand {
     public void perform(Player player, String[] args) {
         if (args.length == 1){
             Files.reload();
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&',"&6Economy reloaded"));
+            MessageConfig.sendMessage(player,"&6Economy reloaded");
         }
     }
 }
