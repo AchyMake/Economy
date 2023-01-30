@@ -1,5 +1,6 @@
 package net.achymake.economy.command.eco.sub;
 
+import net.achymake.economy.api.EconomyProvider;
 import net.achymake.economy.command.eco.EcoSubCommand;
 import net.achymake.economy.config.MessageConfig;
 import net.achymake.economy.config.PlayerConfig;
@@ -31,9 +32,9 @@ public class Reset extends EcoSubCommand {
         if (args.length == 2){
             OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args[1]);
             if (PlayerConfig.exist(offlinePlayer)){
-                Settings.resetEconomy(offlinePlayer);
+                EconomyProvider.resetEconomy(offlinePlayer);
                 for (String messages : MessageConfig.get().getStringList("command-eco-reset")){
-                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', MessageFormat.format(messages,offlinePlayer.getName(),Settings.getFormat(Settings.getEconomy(offlinePlayer)))));
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', MessageFormat.format(messages,offlinePlayer.getName(),EconomyProvider.getFormat(EconomyProvider.getEconomy(offlinePlayer)))));
                 }
             }else{
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&', MessageFormat.format(MessageConfig.get().getString("error-target-null"),offlinePlayer.getName())));

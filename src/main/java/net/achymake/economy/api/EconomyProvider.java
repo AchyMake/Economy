@@ -1,4 +1,4 @@
-package net.achymake.economy.settings;
+package net.achymake.economy.api;
 
 import net.achymake.economy.Economy;
 import net.achymake.economy.config.Config;
@@ -11,7 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.DecimalFormat;
 
-public class Settings {
+public class EconomyProvider {
     public static double getEconomy(OfflinePlayer offlinePlayer){
         return PlayerConfig.get(offlinePlayer).getDouble("account");
     }

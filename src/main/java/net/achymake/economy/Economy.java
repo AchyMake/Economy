@@ -13,10 +13,10 @@ public final class Economy extends JavaPlugin {
     public static Economy instance;
     @Override
     public void onEnable() {
-        VaultSetup.setup(this);
         getConfig().options().copyDefaults(true);
         saveConfig();
         instance = this;
+        VaultSetup.setup(this);
         Files.setup();
         Events.start(this);
         Commands.start(this);

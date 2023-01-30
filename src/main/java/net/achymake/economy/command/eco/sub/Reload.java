@@ -24,7 +24,7 @@ public class Reload extends EcoSubCommand {
     @Override
     public void perform(Player player, String[] args) {
         if (args.length == 1){
-            Files.reload(player.getServer());
+            Files.reload();
             player.sendMessage(ChatColor.translateAlternateColorCodes('&',"&6Economy reloaded"));
         }
     }

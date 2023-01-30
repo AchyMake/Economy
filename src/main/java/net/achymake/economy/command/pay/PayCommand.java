@@ -1,8 +1,8 @@
 package net.achymake.economy.command.pay;
 
+import net.achymake.economy.api.EconomyProvider;
 import net.achymake.economy.config.MessageConfig;
 import net.achymake.economy.config.PlayerConfig;
-import net.achymake.economy.settings.Settings;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
@@ -25,17 +25,17 @@ public class PayCommand implements CommandExecutor, TabCompleter {
                 OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args[0]);
                 if (PlayerConfig.exist(offlinePlayer)){
                     double amount = Double.parseDouble(args[1]);
-                    if (amount <= Settings.getEconomy(player)){
-                        Settings.addEconomy(offlinePlayer,amount);
-                        Settings.removeEconomy(player,amount);
+                    if (amount <= EconomyProvider.getEconomy(player)){
+                        EconomyProvider.addEconomy(offlinePlayer,amount);
+                        EconomyProvider.removeEconomy(player,amount);
                         if (offlinePlayer.isOnline()){
-                            player.sendMessage(ChatColor.translateAlternateColorCodes('&', MessageFormat.format(MessageConfig.get().getString("command-pay"),offlinePlayer.getName(), Settings.getFormat(amount))));
-                            player.sendMessage(ChatColor.translateAlternateColorCodes('&', MessageFormat.format(MessageConfig.get().getString("command-pay-target"),player.getName(), Settings.getFormat(amount))));
+                            player.sendMessage(ChatColor.translateAlternateColorCodes('&', MessageFormat.format(MessageConfig.get().getString("command-pay"),offlinePlayer.getName(), EconomyProvider.getFormat(amount))));
+                            player.sendMessage(ChatColor.translateAlternateColorCodes('&', MessageFormat.format(MessageConfig.get().getString("command-pay-target"),player.getName(), EconomyProvider.getFormat(amount))));
                         }else{
-                            player.sendMessage(ChatColor.translateAlternateColorCodes('&', MessageFormat.format(MessageConfig.get().getString("command-pay"),offlinePlayer.getName(), Settings.getFormat(amount))));
+                            player.sendMessage(ChatColor.translateAlternateColorCodes('&', MessageFormat.format(MessageConfig.get().getString("command-pay"),offlinePlayer.getName(), EconomyProvider.getFormat(amount))));
                         }
                     }else{
-                        player.sendMessage(ChatColor.translateAlternateColorCodes('&',MessageFormat.format(MessageConfig.get().getString("error-not-enough-currency"),Settings.getFormat(amount))));
+                        player.sendMessage(ChatColor.translateAlternateColorCodes('&',MessageFormat.format(MessageConfig.get().getString("error-not-enough-currency"),EconomyProvider.getFormat(amount))));
                     }
                 }else{
                     player.sendMessage(ChatColor.translateAlternateColorCodes('&', MessageFormat.format(MessageConfig.get().getString("error-target-null"),offlinePlayer.getName())));

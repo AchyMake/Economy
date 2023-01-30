@@ -4,7 +4,7 @@ main: net.achymake.economy.Economy
 api-version: 1.13
 prefix: Economy
 load: STARTUP
-depend: [ Vault ]
+softdepend: [ Vault ]
 authors: [ AchyMake ]
 description: Economy Plugin
 permissions:

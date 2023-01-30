@@ -1,5 +1,6 @@
 package net.achymake.economy.command.eco.sub;
 
+import net.achymake.economy.api.EconomyProvider;
 import net.achymake.economy.command.eco.EcoSubCommand;
 import net.achymake.economy.config.MessageConfig;
 import net.achymake.economy.config.PlayerConfig;
@@ -34,9 +35,9 @@ public class Remove extends EcoSubCommand {
             OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args[1]);
             if (PlayerConfig.exist(offlinePlayer)){
                 double amount = Double.parseDouble(args[2]);
-                Settings.removeEconomy(offlinePlayer,amount);
+                EconomyProvider.removeEconomy(offlinePlayer,amount);
                 for (String messages : MessageConfig.get().getStringList("command-eco-remove")){
-                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', MessageFormat.format(messages,Settings.getFormat(amount),offlinePlayer.getName(),Settings.getFormat(Settings.getEconomy(offlinePlayer)))));
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', MessageFormat.format(messages,EconomyProvider.getFormat(amount),offlinePlayer.getName(),EconomyProvider.getFormat(EconomyProvider.getEconomy(offlinePlayer)))));
                 }
             }else{
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&', MessageFormat.format(MessageConfig.get().getString("error-target-null"),offlinePlayer.getName())));

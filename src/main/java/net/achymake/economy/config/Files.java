@@ -1,14 +1,13 @@
 package net.achymake.economy.config;
 
-import org.bukkit.Server;
-
 public class Files {
     public static void setup(){
         MessageConfig.setup();
+        PlayerConfig.setup();
     }
-    public static void reload(Server server){
+    public static void reload(){
         Config.reload();
         MessageConfig.reload();
-        PlayerConfig.reload(server);
+        PlayerConfig.reload();
     }
 }
