@@ -17,11 +17,11 @@ public class PlayerConfig {
         }
     }
     public static boolean exist(OfflinePlayer offlinePlayer){
-        return new File(Economy.instance.getDataFolder(), "database/"+offlinePlayer.getUniqueId()+".yml").exists();
+        return new File(Economy.instance.getDataFolder(), "userdata/"+offlinePlayer.getUniqueId()+".yml").exists();
     }
     public static void create(OfflinePlayer offlinePlayer){
-        File folder = new File(Economy.instance.getDataFolder(), "database");
-        File file = new File(Economy.instance.getDataFolder(), "database/"+offlinePlayer.getUniqueId()+".yml");
+        File folder = new File(Economy.instance.getDataFolder(), "userdata");
+        File file = new File(Economy.instance.getDataFolder(), "userdata/"+offlinePlayer.getUniqueId()+".yml");
         if (!folder.exists()){
             folder.mkdirs();
         }
@@ -48,11 +48,11 @@ public class PlayerConfig {
         }
     }
     public static FileConfiguration get(OfflinePlayer offlinePlayer){
-        return YamlConfiguration.loadConfiguration(new File(Economy.instance.getDataFolder(), "database/"+offlinePlayer.getUniqueId()+".yml"));
+        return YamlConfiguration.loadConfiguration(new File(Economy.instance.getDataFolder(), "userdata/"+offlinePlayer.getUniqueId()+".yml"));
     }
     public static void reload(){
         for (OfflinePlayer offlinePlayer : Bukkit.getServer().getOfflinePlayers()){
-            File file = new File(Economy.instance.getDataFolder(), "database/"+offlinePlayer.getUniqueId()+".yml");
+            File file = new File(Economy.instance.getDataFolder(), "userdata/"+offlinePlayer.getUniqueId()+".yml");
             if (file.exists()){
                 FileConfiguration configuration = YamlConfiguration.loadConfiguration(file);
                 try {

@@ -16,7 +16,7 @@ public class EconomyProvider {
         return PlayerConfig.get(offlinePlayer).getDouble("account");
     }
     public static void addEconomy(OfflinePlayer offlinePlayer, double amount){
-        File file = new File(Economy.instance.getDataFolder(), "database/"+offlinePlayer.getUniqueId()+".yml");
+        File file = new File(Economy.instance.getDataFolder(), "userdata/" +offlinePlayer.getUniqueId()+".yml");
         FileConfiguration configuration = YamlConfiguration.loadConfiguration(file);
         double newAmount = amount + configuration.getDouble("account");
         try {
@@ -27,7 +27,7 @@ public class EconomyProvider {
         }
     }
     public static void removeEconomy(OfflinePlayer offlinePlayer, double amount){
-        File file = new File(Economy.instance.getDataFolder(), "database/"+offlinePlayer.getUniqueId()+".yml");
+        File file = new File(Economy.instance.getDataFolder(), "userdata/" +offlinePlayer.getUniqueId()+".yml");
         FileConfiguration configuration = YamlConfiguration.loadConfiguration(file);
         double newAmount = configuration.getDouble("account") - amount;
         try {
@@ -38,7 +38,7 @@ public class EconomyProvider {
         }
     }
     public static void setEconomy(OfflinePlayer offlinePlayer, double amount){
-        File file = new File(Economy.instance.getDataFolder(), "database/"+offlinePlayer.getUniqueId()+".yml");
+        File file = new File(Economy.instance.getDataFolder(), "userdata/" +offlinePlayer.getUniqueId()+".yml");
         FileConfiguration configuration = YamlConfiguration.loadConfiguration(file);
         try {
             configuration.set("account",amount);
@@ -48,7 +48,7 @@ public class EconomyProvider {
         }
     }
     public static void resetEconomy(OfflinePlayer offlinePlayer){
-        File file = new File(Economy.instance.getDataFolder(), "database/"+offlinePlayer.getUniqueId()+".yml");
+        File file = new File(Economy.instance.getDataFolder(), "userdata/" +offlinePlayer.getUniqueId()+".yml");
         FileConfiguration configuration = YamlConfiguration.loadConfiguration(file);
         try {
             configuration.set("account",0.0);
