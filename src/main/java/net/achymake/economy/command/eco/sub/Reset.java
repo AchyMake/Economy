@@ -4,7 +4,6 @@ import net.achymake.economy.api.EconomyProvider;
 import net.achymake.economy.command.eco.EcoSubCommand;
 import net.achymake.economy.config.MessageConfig;
 import net.achymake.economy.config.PlayerConfig;
-import net.achymake.economy.settings.Settings;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;

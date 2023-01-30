@@ -3,7 +3,6 @@ package net.achymake.economy.api;
 import net.achymake.economy.Economy;
 import net.achymake.economy.config.Config;
 import net.achymake.economy.config.PlayerConfig;
-import net.achymake.economy.settings.Settings;
 import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
