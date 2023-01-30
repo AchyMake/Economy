@@ -1,5 +1,6 @@
 package net.achymake.economy;
 
+import net.achymake.economy.api.PlaceholderSetup;
 import net.achymake.economy.api.VaultSetup;
 import net.achymake.economy.command.Commands;
 import net.achymake.economy.config.Files;
@@ -17,6 +18,7 @@ public final class Economy extends JavaPlugin {
         saveConfig();
         instance = this;
         VaultSetup.setup(this);
+        PlaceholderSetup.setup(this);
         Files.setup();
         Events.start(this);
         Commands.start(this);
