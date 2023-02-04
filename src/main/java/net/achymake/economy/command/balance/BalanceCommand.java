@@ -18,7 +18,7 @@ public class BalanceCommand implements CommandExecutor, TabCompleter {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         Player player = (Player) sender;
         if (args.length == 0){
-            player.sendMessage(Message.commandBalanceSelf());
+            player.sendMessage(Message.commandBalanceSelf(player));
         } else if (args.length == 1) {
             if (player.hasPermission("economy.balance.others")){
                 OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args[0]);
