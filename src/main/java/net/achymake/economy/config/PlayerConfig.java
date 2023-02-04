@@ -11,11 +11,6 @@ import java.io.File;
 import java.io.IOException;
 
 public class PlayerConfig {
-    public static void setup(){
-        for (OfflinePlayer offlinePlayer : Bukkit.getServer().getOfflinePlayers()){
-            create(offlinePlayer);
-        }
-    }
     public static boolean exist(OfflinePlayer offlinePlayer){
         return new File(Economy.instance.getDataFolder(), "userdata/"+offlinePlayer.getUniqueId()+".yml").exists();
     }
@@ -25,10 +20,10 @@ public class PlayerConfig {
         if (!folder.exists()){
             folder.mkdirs();
         }
-        if (!exist(offlinePlayer)){
+        if (!file.exists()){
             FileConfiguration config = YamlConfiguration.loadConfiguration(file);
             config.set("name", offlinePlayer.getName());
-            config.set("account", Config.get().getDouble("settings.starting-balance"));
+            config.set("account", Config.config.getDouble("settings.starting-balance"));
             config.options().copyDefaults(true);
             try {
                 config.save(file);
@@ -47,6 +42,16 @@ public class PlayerConfig {
             }
         }
     }
+    public static void setDouble(OfflinePlayer offlinePlayer,String type, double value){
+        File file = new File(Economy.instance.getDataFolder(), "userdata/"+offlinePlayer.getUniqueId()+".yml");
+        FileConfiguration configuration = YamlConfiguration.loadConfiguration(file);
+        configuration.set(type,value);
+        try {
+            configuration.save(file);
+        } catch (IOException e) {
+            Economy.instance.sendMessage(e.getMessage());
+        }
+    }
     public static FileConfiguration get(OfflinePlayer offlinePlayer){
         return YamlConfiguration.loadConfiguration(new File(Economy.instance.getDataFolder(), "userdata/"+offlinePlayer.getUniqueId()+".yml"));
     }
@@ -60,8 +65,6 @@ public class PlayerConfig {
                 } catch (IOException | InvalidConfigurationException e) {
                     Economy.instance.sendMessage(e.getMessage());
                 }
-            }else{
-                create(offlinePlayer);
             }
         }
     }

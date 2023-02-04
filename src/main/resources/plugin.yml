@@ -2,11 +2,11 @@ name: Economy
 version: '${project.version}'
 main: net.achymake.economy.Economy
 api-version: 1.13
-prefix: Economy
+prefix: '${project.name}'
 load: STARTUP
 softdepend: [ Vault ]
-authors: [ AchyMake ]
-description: Economy Plugin
+author: AchyMake
+description: '${project.description}'
 permissions:
   economy.balance:
     description: check balance

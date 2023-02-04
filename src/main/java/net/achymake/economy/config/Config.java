@@ -7,12 +7,9 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.File;
 
 public class Config {
-    public static File configFile = new File(Economy.instance.getDataFolder(), "config.yml");
-    public static FileConfiguration config = YamlConfiguration.loadConfiguration(configFile);
-    public static FileConfiguration get(){
-        return config;
-    }
+    private static final File file = new File(Economy.instance.getDataFolder(), "config.yml");
+    public static FileConfiguration config = YamlConfiguration.loadConfiguration(file);
     public static void reload(){
-        config = YamlConfiguration.loadConfiguration(configFile);
+        config = YamlConfiguration.loadConfiguration(file);
     }
 }

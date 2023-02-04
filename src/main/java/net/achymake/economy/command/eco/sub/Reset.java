@@ -2,13 +2,11 @@ package net.achymake.economy.command.eco.sub;
 
 import net.achymake.economy.api.EconomyProvider;
 import net.achymake.economy.command.eco.EcoSubCommand;
-import net.achymake.economy.config.MessageConfig;
+import net.achymake.economy.config.Message;
 import net.achymake.economy.config.PlayerConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
-
-import java.text.MessageFormat;
 
 public class Reset extends EcoSubCommand {
     @Override
@@ -31,11 +29,10 @@ public class Reset extends EcoSubCommand {
             OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args[1]);
             if (PlayerConfig.exist(offlinePlayer)){
                 EconomyProvider.resetEconomy(offlinePlayer);
-                for (String messages : MessageConfig.get().getStringList("command-eco-reset")){
-                    MessageConfig.sendMessage(player,MessageFormat.format(messages,offlinePlayer.getName(),EconomyProvider.getFormat(EconomyProvider.getEconomy(offlinePlayer))));
-                }
+                player.sendMessage(Message.commandEcoReset(offlinePlayer));
+                player.sendMessage(Message.commandBalanceOther(offlinePlayer));
             }else{
-                MessageConfig.sendMessage(player,MessageFormat.format(MessageConfig.get().getString("error-target-null"),offlinePlayer.getName()));
+                player.sendMessage(Message.commandErrorTargetNull(args[0]));
             }
         }
     }

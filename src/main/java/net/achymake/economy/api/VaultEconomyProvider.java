@@ -19,7 +19,7 @@ public class VaultEconomyProvider implements net.milkbowl.vault.economy.Economy 
         return this.eco.isEnabled();
     }
     public String getName() {
-        return "Economy";
+        return eco.getName();
     }
     public boolean hasBankSupport() {
         return false;
@@ -35,7 +35,7 @@ public class VaultEconomyProvider implements net.milkbowl.vault.economy.Economy 
         return this.currencyNameSingular();
     }
     public String currencyNameSingular() {
-        return Config.get().getString("settings.currency");
+        return Config.config.getString("settings.currency");
     }
     public boolean hasAccount(OfflinePlayer offlinePlayer) {
         return PlayerConfig.exist(offlinePlayer);

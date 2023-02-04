@@ -16,7 +16,7 @@ public class PlayerJoin implements Listener {
     @EventHandler(priority = EventPriority.NORMAL)
     public void onPlayerLogin (PlayerLoginEvent event){
         Player player = event.getPlayer();
-        if (!player.hasPermission("homes.reload"))return;
+        if (!player.hasPermission("economy.reload"))return;
         UpdateChecker.sendMessage(player);
     }
 }

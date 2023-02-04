@@ -1,7 +1,7 @@
 package net.achymake.economy.command.pay;
 
 import net.achymake.economy.api.EconomyProvider;
-import net.achymake.economy.config.MessageConfig;
+import net.achymake.economy.config.Message;
 import net.achymake.economy.config.PlayerConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -11,7 +11,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,16 +28,16 @@ public class PayCommand implements CommandExecutor, TabCompleter {
                         EconomyProvider.removeEconomy(player,amount);
                         if (offlinePlayer.isOnline()){
                             Player target = player.getServer().getPlayerExact(args[0]);
-                            MessageConfig.sendMessage(player,MessageFormat.format(MessageConfig.get().getString("command-pay"),offlinePlayer.getName(), EconomyProvider.getFormat(amount)));
-                            MessageConfig.sendMessage(target,MessageFormat.format(MessageConfig.get().getString("command-pay-target"),player.getName(), EconomyProvider.getFormat(amount)));
+                            player.sendMessage(Message.commandPaySender(target,amount));
+                            target.sendMessage(Message.commandPayTarget(player,amount));
                         }else{
-                            MessageConfig.sendMessage(player,MessageFormat.format(MessageConfig.get().getString("command-pay"),offlinePlayer.getName(), EconomyProvider.getFormat(amount)));
+                            player.sendMessage(Message.commandPaySender(offlinePlayer,amount));
                         }
                     }else{
-                        MessageConfig.sendMessage(player,MessageFormat.format(MessageConfig.get().getString("error-not-enough-currency"),EconomyProvider.getFormat(amount)));
+                        player.sendMessage(Message.errorNotEnoughCurrency(amount));
                     }
                 }else{
-                    MessageConfig.sendMessage(player,MessageFormat.format(MessageConfig.get().getString("error-target-null"),offlinePlayer.getName()));
+                    player.sendMessage(Message.commandErrorTargetNull(args[0]));
                 }
             }
         }
