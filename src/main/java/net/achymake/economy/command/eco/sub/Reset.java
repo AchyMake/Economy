@@ -25,14 +25,16 @@ public class Reset extends EcoSubCommand {
     }
     @Override
     public void perform(Player player, String[] args) {
-        if (args.length == 2){
-            OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args[1]);
-            if (PlayerConfig.exist(offlinePlayer)){
-                EconomyProvider.resetEconomy(offlinePlayer);
-                player.sendMessage(Message.commandEcoReset(offlinePlayer));
-                player.sendMessage(Message.commandBalanceOther(offlinePlayer));
-            }else{
-                player.sendMessage(Message.commandErrorTargetNull(args[0]));
+        if (player.hasPermission("economy.eco.reset")){
+            if (args.length == 2){
+                OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args[1]);
+                if (PlayerConfig.exist(offlinePlayer)){
+                    EconomyProvider.resetEconomy(offlinePlayer);
+                    player.sendMessage(Message.commandEcoReset(offlinePlayer));
+                    player.sendMessage(Message.commandBalanceOther(offlinePlayer));
+                }else{
+                    player.sendMessage(Message.commandErrorTargetNull(args[0]));
+                }
             }
         }
     }

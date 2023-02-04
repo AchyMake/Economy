@@ -16,7 +16,6 @@ public class EcoCommand implements CommandExecutor, TabCompleter {
 
     public EcoCommand(){
         ecoSubCommands.add(new Add());
-        ecoSubCommands.add(new Reload());
         ecoSubCommands.add(new Remove());
         ecoSubCommands.add(new Reset());
         ecoSubCommands.add(new Set());
@@ -24,7 +23,7 @@ public class EcoCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length > 0){
-            for (EcoSubCommand commands : getSubCommands()){
+            for (EcoSubCommand commands : ecoSubCommands){
                 if (args[0].equals(commands.getName())){
                     commands.perform((Player) sender,args);
                 }
@@ -32,26 +31,75 @@ public class EcoCommand implements CommandExecutor, TabCompleter {
         }
         return true;
     }
-    public ArrayList<EcoSubCommand> getSubCommands(){
-        return ecoSubCommands;
-    }
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         List<String> commands = new ArrayList<>();
         if (args.length == 1){
-            for (EcoSubCommand subCommand : getSubCommands()){
-                commands.add(subCommand.getName());
+            if (sender.hasPermission("economy.eco.add")){
+                commands.add("add");
+            }
+            if (sender.hasPermission("economy.eco.remove")){
+                commands.add("remove");
+            }
+            if (sender.hasPermission("economy.eco.reset")){
+                commands.add("reset");
+            }
+            if (sender.hasPermission("economy.eco.set")){
+                commands.add("set");
             }
             return commands;
         }else if (args.length == 2) {
-            for (OfflinePlayer offlinePlayer : sender.getServer().getOfflinePlayers()){
-                commands.add(offlinePlayer.getName());
+            if (sender.hasPermission("economy.eco.add")){
+                if (args[0].equalsIgnoreCase("add")){
+                    for (OfflinePlayer offlinePlayer : sender.getServer().getOfflinePlayers()){
+                        commands.add(offlinePlayer.getName());
+                    }
+                }
+            }
+            if (sender.hasPermission("economy.eco.remove")){
+                if (args[0].equalsIgnoreCase("remove")){
+                    for (OfflinePlayer offlinePlayer : sender.getServer().getOfflinePlayers()){
+                        commands.add(offlinePlayer.getName());
+                    }
+                }
+            }
+            if (sender.hasPermission("economy.eco.reset")){
+                if (args[0].equalsIgnoreCase("reset")){
+                    for (OfflinePlayer offlinePlayer : sender.getServer().getOfflinePlayers()){
+                        commands.add(offlinePlayer.getName());
+                    }
+                }
+            }
+            if (sender.hasPermission("economy.eco.set")){
+                if (args[0].equalsIgnoreCase("set")){
+                    for (OfflinePlayer offlinePlayer : sender.getServer().getOfflinePlayers()){
+                        commands.add(offlinePlayer.getName());
+                    }
+                }
             }
             return commands;
         }else if (args.length == 3) {
-            commands.add("50");
-            commands.add("100");
-            commands.add("1000");
+            if (sender.hasPermission("economy.eco.add")){
+                if (args[0].equalsIgnoreCase("add")){
+                    commands.add("50");
+                    commands.add("100");
+                    commands.add("1000");
+                }
+            }
+            if (sender.hasPermission("economy.eco.remove")){
+                if (args[0].equalsIgnoreCase("remove")){
+                    commands.add("50");
+                    commands.add("100");
+                    commands.add("1000");
+                }
+            }
+            if (sender.hasPermission("economy.eco.set")){
+                if (args[0].equalsIgnoreCase("set")){
+                    commands.add("50");
+                    commands.add("100");
+                    commands.add("1000");
+                }
+            }
             return commands;
         }
         return commands;

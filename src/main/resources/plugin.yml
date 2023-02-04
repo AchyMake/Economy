@@ -13,21 +13,42 @@ permissions:
   economy.balance:
     description: check balance
     default: true
-  economy.pay:
-    description: check balance
-    default: true
   economy.balance.others:
     description: check balance of others
     default: op
+  economy.pay:
+    description: check balance
+    default: true
+  economy.eco:
+    description: economy settings
+    default: op
+    children:
+      - economy.eco.add
+      - economy.eco.remove
+      - economy.eco.reset
+      - economy.eco.set
+  economy.eco.add:
+    description: economy settings
+    default: false
+  economy.eco.remove:
+    description: economy settings
+    default: false
+  economy.eco.reset:
+    description: economy settings
+    default: false
+  economy.eco.set:
+    description: economy settings
+    default: false
   economy.reload:
     description: economy settings
     default: op
 commands:
   economy:
     permission: economy.reload
+    description: economy reload
+  eco:
+    permission: economy.eco
     description: economy settings
-    aliases:
-      - eco
   balance:
     permission: economy.balance
     description: check balance

@@ -26,15 +26,17 @@ public class Add extends EcoSubCommand {
 
     @Override
     public void perform(Player player, String[] args) {
-        if (args.length == 3){
-            OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args[1]);
-            if (PlayerConfig.exist(offlinePlayer)){
-                double amount = Double.parseDouble(args[2]);
-                EconomyProvider.addEconomy(offlinePlayer,amount);
-                player.sendMessage(Message.commandEcoAdd(offlinePlayer,amount));
-                player.sendMessage(Message.commandBalanceOther(offlinePlayer));
-            }else{
-                player.sendMessage(Message.commandErrorTargetNull(args[0]));
+        if (player.hasPermission("economy.eco.add")){
+            if (args.length == 3){
+                OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args[1]);
+                if (PlayerConfig.exist(offlinePlayer)){
+                    double amount = Double.parseDouble(args[2]);
+                    EconomyProvider.addEconomy(offlinePlayer,amount);
+                    player.sendMessage(Message.commandEcoAdd(offlinePlayer,amount));
+                    player.sendMessage(Message.commandBalanceOther(offlinePlayer));
+                }else{
+                    player.sendMessage(Message.commandErrorTargetNull(args[0]));
+                }
             }
         }
     }
