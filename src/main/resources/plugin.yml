@@ -4,7 +4,9 @@ main: net.achymake.economy.Economy
 api-version: 1.13
 prefix: '${project.name}'
 load: STARTUP
-softdepend: [ Vault ]
+softdepend:
+  - Vault
+  - PlaceholderAPI
 author: AchyMake
 description: '${project.description}'
 permissions:
